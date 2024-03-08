@@ -171,34 +171,41 @@ df = pandas.read_csv()
 
 Quel est le type de l'objet `df`?
 ```
-
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
+nb_lignes, nb_colonnes
 ```
 ###### df.head()
 ```
+affiche premières lignes du tableau
 ```
 ###### df.tail()
 ```
+affiche dernières lignes du tableau
 ```
 ###### df.columns
 ```
+affiche le nom des colonnes
 ```
 ###### df.dtypes
 ```
+affiche le type des valeurs (par colonnes)
 ```
 ###### df.info
 ```
+affiche premières et dernieres lignes 
 ```
 ###### df.describe()
 ```
+décrit les colonnes numériques
 ```
 ###### df.dropna()
 ```
+retire les lignes avec NaN
 ```
 
 ##### Accès aux éléments d'une table de données
@@ -209,6 +216,10 @@ values = df[['Description', 'Gene Symbol']]
 
 Quel est le type de `values` ?
 
+```
+objet
+```
+
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
 Ce type supporte l'accès par indice et les slice `[a:b]`
 
@@ -218,17 +229,17 @@ On peut accéder aux valeurs du DataFrame via des indices ou plages d'indice. La
 Il y a différentes manières de le faire, l'utilisation de `.iloc[slice_ligne,slice_colonne]` constitue une des solutions les plus simples. N'oublions pas que shape permet d'obtenir les dimensions (lignes et colonnes) du DataFrame.
 ###### Acceder aux cinq premières lignes de toutes les colonnes
 ```python
-
+df.iloc[0:5,]
 ```
 
 ###### Acceder à toutes les lignes de la dernière colonne
 ```python
-
+df.iloc[:,-1]
 ```
 
 ###### Acceder aux cinq premières lignes des colonnes 0, 2 et 3
 ```python
-
+df.iloc[:5,[0,2,3]]
 ```
 
 ##### Conversion de type
@@ -274,15 +285,28 @@ df.loc[ df['Gene Symbol'].isin(['fadR', 'arcA'] ) ]
 
 ##### 1. Charger le contenu du fichier `data/TCL_wt1.tsv` dans un notebook en eliminant les lignes porteuses de valeurs numériques aberrantes
 
+```
+df = pandas.read_csv('data/TCL_wt1.tsv', sep = '\t', na_values=['#VALEUR!'])
+df = df.dropna()
+
+```
+
 ##### 2. Representez par un histogramme les valeurs de `Log2 Corrected Abundance Ratio`
+
+```
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+x = df.iloc[:,4]
+ax.hist(x, bins = 30)
+
+plt.show()
+```
 
 <!-- ##### 3. A partir de cette échantillon de ratio d'abondance,  estimez la moyenne <img src="https://render.githubusercontent.com/render/math?math=\mu"> et l'ecart-type <img src="https://render.githubusercontent.com/render/math?math=\sigma"> d'une loi normale. -->
 
 ##### 3. A partir de cette échantillon de ratio d'abondance,  estimez la moyenne $\mu$ et l'ecart-type $\sigma$ d'une loi normale.
-```
 
-
-```
 
 ##### 4. Superposez la densité de probabilité de cette loi sur l'histogramme. Attention, la densité de probabilité devra être mis à l'echelle de l'histogramme (cf ci-dessous)
 
@@ -297,12 +321,29 @@ scale = len(_)*dx # scale accordingly
 ax.plot(x, norm.pdf(x, mu, sigma)*scale) # compute theoritical PDF and draw it
 ```
 
+```
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+a = df.iloc[:,4]
+
+hist = ax.hist(a, bins = 100)
+x = np.linspace(min(a), max(a), 100) # generate PDF domain points
+dx = hist[1][1] - hist[1][0] # Get single value bar height
+scale = len(a)*dx # scale accordingly
+ax.plot(x, norm.pdf(x, mu, sigma)*scale)
+
+plt.show()
+```
+
 ![Histogramme à inserez ici](histogram_log2FC.png "Title")
 
 ##### 5. Quelles remarques peut-on faire à l'observation de l'histogramme et de la loi théorique?
 
 ```
-
+Ca ne fit pas très bien.
 
 ```
 
