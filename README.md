@@ -171,13 +171,14 @@ df = pandas.read_csv()
 
 Quel est le type de l'objet `df`?
 ```
+pandas.core.frame.DataFrame
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
-nb_lignes, nb_colonnes
+(nb_lignes, nb_colonnes)
 ```
 ###### df.head()
 ```
@@ -189,7 +190,7 @@ affiche dernières lignes du tableau
 ```
 ###### df.columns
 ```
-affiche le nom des colonnes
+Index(['column'])
 ```
 ###### df.dtypes
 ```
@@ -197,11 +198,11 @@ affiche le type des valeurs (par colonnes)
 ```
 ###### df.info
 ```
-affiche premières et dernieres lignes 
+affiche premières et dernieres lignes + dimension du tableau
 ```
 ###### df.describe()
 ```
-décrit les colonnes numériques
+décrit les colonnes numériques (mean, std, min, max ...)
 ```
 ###### df.dropna()
 ```
@@ -217,7 +218,7 @@ values = df[['Description', 'Gene Symbol']]
 Quel est le type de `values` ?
 
 ```
-objet
+pandas.core.frame.DataFrame
 ```
 
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
@@ -297,7 +298,7 @@ df = df.dropna()
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
-x = df.iloc[:,4]
+x = df['Log2 Corrected Abundance Ratio']
 ax.hist(x, bins = 30)
 
 plt.show()
@@ -327,9 +328,10 @@ from scipy.stats import norm
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
-a = df.iloc[:,4]
+a = df['Log2 Corrected Abundance Ratio']
 
 hist = ax.hist(a, bins = 100)
+
 x = np.linspace(min(a), max(a), 100) # generate PDF domain points
 dx = hist[1][1] - hist[1][0] # Get single value bar height
 scale = len(a)*dx # scale accordingly
