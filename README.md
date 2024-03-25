@@ -474,10 +474,7 @@ Valider le mapping produit par STRING en clickant sur 'Continue'.
 Combien d'interactions contient ce réseau ?
 
 ```
-
-
-
-
+23
 ```
 
 
@@ -488,12 +485,19 @@ ou physique avec différents indices de confiance.
 Combien d'interactions sont supportées par chaque source ('Textmining', 'Experiments', 'Databases','Co-expression',
 'Neighborhood', 'Gene Fusion', 'Co-occurence') ?
 
-Hint: l'onglet Analysis, donne accès aux nombre des interactions du réseau.
+```
+Textmining: 29
+Experiments: 8
+Databases: 4
+Co-expression: 9
+Neighborhood: 1
+Gene Fusion: 0
+Co-occurence: 7
 ```
 
-
-
-
+Hint: l'onglet Analysis, donne accès aux nombre des interactions du réseau.
+```
+38
 ```
 
 #### Analyse du réseau des protéines sur-exprimées dans le contexte du réseau global.
@@ -502,21 +506,16 @@ Consulter la rubrique 'Network Stats' dans l'onglet Analysis.
 
 Que peut-on en conclure sur les interactions de ce petit ensemble de protéines ?
 ```
-
-
-
-
+"your network has significantly more interactions than expected "
+Les protéines surexprimées semblent intéragir entre elles. 
 ```
 
 Afin de replacer ces protéines dans le contexte du réseau d'interaction global de E. coli, 
 ajouter les interacteurs de la première et de la deuxième couche.
 
-Que pouvez-vous en déduire sur les mécanismes activés par la présente de tétracycline ?
+Que pouvez-vous en déduire sur les mécanismes activés par la présence de tétracycline ?
 ```
-
-
-
-
+Degration ADN, activation canaux
 ```
 #### Analyse de sur-représentation des termes GO
 
